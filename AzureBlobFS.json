@@ -1,0 +1,10 @@
+{
+    "name": "AzureBlobFS",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "type": "AzureBlobFS",
+        "typeProperties": {
+            "url": "https://adlsnycpayroll.dfs.core.windows.net"
+        }
+    }
+}
