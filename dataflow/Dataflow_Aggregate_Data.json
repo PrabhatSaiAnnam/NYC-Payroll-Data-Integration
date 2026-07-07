@@ -1,0 +1,30 @@
+{
+    "name": "Dataflow_Aggregate_Data",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                { "dataset": { "referenceName": "dataset_nycpayroll_2021", "type": "DatasetReference" }, "name": "SourceCurrentYear" },
+                { "dataset": { "referenceName": "dataset_history_folder", "type": "DatasetReference" }, "name": "SourceHistoryFiles" }
+            ],
+            "sinks": [
+                { "dataset": { "referenceName": "dataset_synapse_summary", "type": "DatasetReference" }, "name": "SynapseSummarySink" }
+            ],
+            "transformations": [
+                { "name": "UnionWithHistory" },
+                { "name": "FilterByFiscalYear" },
+                { "name": "CalculateTotalPaid" },
+                { "name": "AggregatePayrollData" }
+            ],
+            "scriptLines": [
+                "source(output(FiscalYear as integer, AgencyName as string, RegularGrossPaid as double, TotalOTPaid as double, TotalOtherPay as double), allowSchemaDrift: true) ~> SourceCurrentYear,",
+                "source(allowSchemaDrift: true) ~> SourceHistoryFiles,",
+                "SourceCurrentYear, SourceHistoryFiles union(byName: true)~> UnionWithHistory,",
+                "UnionWithHistory filter(toInteger(FiscalYear) >= $dataflow_param_fiscalyear) ~> FilterByFiscalYear,",
+                "FilterByFiscalYear derive(TotalPaid = RegularGrossPaid + TotalOTPaid + TotalOtherPay) ~> CalculateTotalPaid,",
+                "CalculateTotalPaid aggregate(groupBy(FiscalYear, AgencyName), TotalPaid = sum(TotalPaid)) ~> AggregatePayrollData,",
+                "AggregatePayrollData sink(allowSchemaDrift: true, mapColumn(FiscalYear, AgencyName, TotalPaid)) ~> SynapseSummarySink"
+            ]
+        }
+    }
+}
