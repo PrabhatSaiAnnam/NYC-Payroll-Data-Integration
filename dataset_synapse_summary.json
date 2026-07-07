@@ -1,0 +1,11 @@
+{
+    "name": "dataset_synapse_summary",
+    "properties": {
+        "linkedServiceName": { "referenceName": "AzureSQLDatabase", "type": "LinkedServiceReference" },
+        "type": "AzureSqlTable",
+        "schema": [],
+        "typeProperties": {
+            "tableName": "NYC_Payroll_Summary"
+        }
+    }
+}
