@@ -1,0 +1,17 @@
+{
+    "name": "Pipeline_Run_Payroll",
+    "properties": {
+        "activities": [
+            {
+                "name": "Execute_Payroll_Dataflow",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [],
+                "policy": { "timeout": "0.12:00:00", "retry": 0 },
+                "typeProperties": {
+                    "dataflow": { "referenceName": "Dataflow_Aggregate_Data", "type": "DataFlowReference" },
+                    "compute": { "coreCount": 8, "computeType": "General" }
+                }
+            }
+        ]
+    }
+}
