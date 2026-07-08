@@ -1,0 +1,15 @@
+{
+    "name": "dataset_NYC_Payroll_Data",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureSqlDatabaseLinkedService",
+            "type": "LinkedServiceReference"
+        },
+        "type": "AzureSqlTable",
+        "schema": [],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "NYC_Payroll_Data"
+        }
+    }
+}
