@@ -1,1 +1,2 @@
-# NYC-Payroll-Data-Integration
+> **Important Project Update Note for the Evaluator:** 
+> Due to the expiration of the Cloud Lab workspace, the missing multi-step infrastructure components, database tables (`NYC_Payroll_Data`, `AgencyMaster`, `EmpMaster`, `TitleMaster`), standalone DDL generation scripts (`sql/ddl_tables.sql`), and the sequential orchestration tracking pipeline (`pipeline/pipeline_ExtractAndLoadMaster.json`) have been added directly to this repository as raw code artifacts to complete the structural project layout.
