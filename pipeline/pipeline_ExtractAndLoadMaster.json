@@ -1,0 +1,30 @@
+{
+    "name": "pipeline_ExtractAndLoadMaster",
+    "properties": {
+        "activities": [
+            {
+                "name": "Copy_AgencyMaster",
+                "type": "Copy",
+                "dependsOn": [],
+                "typeProperties": {
+                    "source": { "type": "DelimitedTextSource" },
+                    "sink": { "type": "AzureSqlSink" }
+                }
+            },
+            {
+                "name": "Copy_EmpMaster",
+                "type": "Copy",
+                "dependsOn": [
+                    {
+                        "activity": "Copy_AgencyMaster",
+                        "dependencyConditions": ["Succeeded"]
+                    }
+                ],
+                "typeProperties": {
+                    "source": { "type": "DelimitedTextSource" },
+                    "sink": { "type": "AzureSqlSink" }
+                }
+            }
+        ]
+    }
+}
